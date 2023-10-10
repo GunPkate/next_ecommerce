@@ -27,6 +27,6 @@ export const authOptions = {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
   ],
-  adapter: MongoDBAdapter(clientPromise),
+  // adapter: MongoDBAdapter(clientPromise),
 }
 export default NextAuth(authOptions)
