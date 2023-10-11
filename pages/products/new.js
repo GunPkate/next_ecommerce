@@ -3,11 +3,12 @@ import {useState} from "react"
 import axios from "axios"
 
 export default function NewProduct(){
-    const [product,setProduct] = useState();
-    const [description,setDescription] = useState();
-    const [price,setPrice] = useState();
+    const [product,setProduct] = useState('');
+    const [description,setDescription] = useState('');
+    const [price,setPrice] = useState('');
 
-    async function createProduct(){
+    async function createProduct(ev){
+        ev.preventDefault() // don't send params in url
         const data = {product,description,price}
         await axios.post('/api/products',data)
         console.log("xxx",data)
