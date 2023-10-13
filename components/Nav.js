@@ -1,5 +1,7 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
+import { useEffect } from "react"
+import axios from "axios"
 
 export function Nav(){
 
@@ -7,6 +9,12 @@ export function Nav(){
     const active =  inActive+ " bg-white text-blue-900  rounded-l-lg"
     const router = useRouter();
     const {pathname} = router;
+
+    useEffect( ()=>{
+        axios.get("/api/products").then(response=>{
+            console.log(response.data)
+        })
+    },[] )
 
     return (
     <aside className="text-white p-4 pr-0"> 
