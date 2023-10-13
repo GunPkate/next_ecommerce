@@ -23,4 +23,10 @@ export default async function handle(req,res) {
         })
         res.json(productDoc)
     }
+
+    if(method === "PUT"){
+        const {_id,product,description,price} = req.body;
+        await Product.updateOne({_id},{product,description,price})
+        res.json("true")
+    }
 }

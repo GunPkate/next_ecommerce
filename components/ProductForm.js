@@ -4,6 +4,7 @@ import {useRouter} from "next/router"
 
 
 export default function ProductForm({
+    _id,
     product:existingProduct,
     description:existingDescription,
     price:existingPrice
@@ -19,7 +20,11 @@ export default function ProductForm({
     async function createProduct(ev){
         ev.preventDefault() // don't send params in url
         const data = {product,description,price}
-        await axios.post('/api/products',data);
+        if(_id){
+            await axios.put('/api/products',{...data,_id})
+        }else{
+            await axios.post('/api/products',data);
+        }
         setGoToProducts(true)
     }
 
