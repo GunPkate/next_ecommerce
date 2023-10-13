@@ -21,7 +21,9 @@ export default function EditProductPage(){
     return (
         <Layout>
             <h1>Edit Product</h1>
-            <ProductForm {...productInfo}/>
+            {
+              productInfo &&  <ProductForm {...productInfo}/> // show when data is valid
+            }
         </Layout>
     )
 }
