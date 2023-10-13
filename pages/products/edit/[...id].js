@@ -2,6 +2,7 @@ import Layout from "@/components/Layouts";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import axios from "axios"
+import ProductForm from "@/components/ProductForm";
 
 export default function EditProductPage(){
     const router = useRouter();
@@ -17,7 +18,7 @@ export default function EditProductPage(){
 
     return (
         <Layout>
-            Edit Product
+            <ProductForm/>
         </Layout>
     )
 }
