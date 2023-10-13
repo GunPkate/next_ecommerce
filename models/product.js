@@ -6,4 +6,6 @@ const ProductSchema = mongoose.Schema({
     price : {type: Number, required: true},
 })
 
-export const Product = mongoose.model('product',ProductSchema)
+//fix overwrite collection (use Schema multiple time)
+console.log("ccc",mongoose.models)
+export const Product = mongoose.models.Product || mongoose.model('Product',ProductSchema)
