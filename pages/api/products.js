@@ -8,7 +8,7 @@ export default async function handle(req,res) {
     await mongooseConnect();
     
     if(method ==="GET"){
-        console.log("xxx",Product)
+
         // if(req.query?.id){
         //     res.json( await Product.findOne({_id:req.query.id}));
             await res.json( await Product.find());

@@ -7,5 +7,5 @@ const ProductSchema = mongoose.Schema({
 })
 
 //fix overwrite collection (use Schema multiple time)
-console.log("ccc",mongoose.models)
+// console.log("ccc",mongoose.models)
 export const Product = mongoose.models.Product || mongoose.model('Product',ProductSchema)
