@@ -41,11 +41,19 @@ export default function ProductForm({
     async function uploadImages(ev){
         console.log(ev) //ev.target.files
         const files = ev.target?.files;
+
         if(files?.length > 0) {
             const data = new FormData();
-            files.forEach(file => data.append('file',file));
-            // const res = await axios.post('api/uploads',data);
-            // console.log("photos",res.data)
+
+            for(const file of files){
+                console.log("files",file)
+                data.append('file',file)
+                console.log(data)
+            }
+            const res = await fetch("/api/uploads",{
+                method: "POST",
+                body: data
+            })
         };
     }
 
