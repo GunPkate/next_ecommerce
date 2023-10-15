@@ -35,7 +35,15 @@ export default function categories(){
                 placeholder={'Category Name'}
                 onChange={ev => setName(ev.target.value)}
                 value = {name}
-                />
+            />
+            <select className="mb-0">
+                <option value="0">No Category</option>
+                {
+                    categories.length > 0 && categories.map(category=>(
+                        <option value={category._id}>{category.name}</option>
+                    ))
+                }
+            </select>
             <button type= "submit" className="btn-primary py-1">Save</button>
         </form>
 
