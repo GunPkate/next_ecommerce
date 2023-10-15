@@ -11,6 +11,12 @@ export default async function handel(req,res){
         res.json(categoryDoc)
     }
 
+    if(method === "PUT"){
+        const {name,parentCategories,_id} = req.body
+        const categoryDoc = await Category.updateOne({_id},{name,parent: parentCategories})
+        res.json(categoryDoc)
+    }
+
     if(method === "GET"){
         const categoryDoc = await Category.find().populate('parent');
         res.json(categoryDoc);

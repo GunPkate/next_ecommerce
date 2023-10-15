@@ -7,17 +7,31 @@ export default function categories(){
     const [categories,setCategories] = useState([]);
     const [parentCategories,setParentCategories] = useState([]);
 
+    const [editedCategory,setEditedCategory] = useState(null);
+
     async function saveCategory(ev){
         ev.preventDefault();
-        await axios.post("/api/categories",{name,parentCategories})
+        const data = {name,parentCategories}
+        if(editedCategory){
+            data._id = editedCategory._id
+            await axios.put("/api/categories",data)
+            setEditedCategory(null)
+        } else {
+            await axios.post("/api/categories",data)
+        }
         setName('');
         fetchCategory();
     }
 
     async function fetchCategory(){
-        axios.get("/api/categories").then(result=> console.log(result))
+        // axios.get("/api/categories").then(result=> console.log(result))
         axios.get("/api/categories").then(result=>setCategories(result.data))
 
+    }
+
+    function editCategory(category){
+        console.log(category)
+        setEditedCategory(category);
     }
 
     useEffect(()=>{
@@ -29,7 +43,7 @@ export default function categories(){
         <h1>
             Categories
         </h1>
-        <label>New category name</label>
+        <label>{editedCategory ? `Edit Category Name ${editedCategory.name}` : 'New Category Name'}</label>
         <form onSubmit={saveCategory} className="flex gap-1">
             <input className="mb-0" type="text" 
                 placeholder={'Category Name'}
@@ -54,6 +68,7 @@ export default function categories(){
                 <tr>
                     <td>Category Name</td>
                     <td>Parent Category</td>
+                    <td></td>
                 </tr>
             </thead>
             <tbody>
@@ -62,6 +77,10 @@ export default function categories(){
                         <tr>
                             <td> {category.name} </td>
                             <td> {category.parent?.name} </td>
+                            <td>
+                                <button className="btn-primary mr-1" onClick={()=>editCategory(category)}>Edit</button>
+                                <button className="btn-primary">Delete</button>
+                            </td>
                         </tr>
                     ))
                 }
