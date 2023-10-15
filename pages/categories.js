@@ -1,8 +1,9 @@
 import Layout from "@/components/Layouts";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import {withSwal} from 'react-sweetalert2'
 
-export default function categories(){
+function Categories({swal}){
     const [name,setName] = useState('');
     const [categories,setCategories] = useState([]);
     const [parentCategories,setParentCategories] = useState([]);
@@ -32,6 +33,26 @@ export default function categories(){
     function editCategory(category){
         console.log(category)
         setEditedCategory(category);
+    }
+
+    function deleteCategory (category){
+
+            swal.fire(
+                {
+                    show: true,
+                    title: 'Confirm Delete',
+                    text: `Do you want to Delete ${category.name} ?`,
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancle',
+                    confirmButtonText: 'Yes, Delete!',
+                    confirmButtonColor: '#d55',
+                }).then(async result => {
+                    if(result.isConfirmed){
+                        const {_id} = category
+                        await axios.delete('/api/categories?_id='+_id,)
+                        fetchCategory()
+                    }
+                })
     }
 
     useEffect(()=>{
@@ -79,7 +100,7 @@ export default function categories(){
                             <td> {category.parent?.name} </td>
                             <td>
                                 <button className="btn-primary mr-1" onClick={()=>editCategory(category)}>Edit</button>
-                                <button className="btn-primary">Delete</button>
+                                <button className="btn-primary" onClick={()=>deleteCategory(category)}>Delete</button>
                             </td>
                         </tr>
                     ))
@@ -89,3 +110,7 @@ export default function categories(){
     </Layout>
     )
 }
+
+export default  withSwal( ({swal}, ref) => (
+    <Categories swal={swal}/>
+) )
