@@ -6,7 +6,7 @@ export default function categories(){
     const [name,setName] = useState();
     async function saveCategory(ev){
         ev.preventDefault();
-        // await axios.post("/api/categories",{name})
+        await axios.post("/api/categories",{name})
         console.log(name)
         setName('');
     }
