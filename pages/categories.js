@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 export default function categories(){
     const [name,setName] = useState('');
     const [categories,setCategories] = useState([]);
+    const [parentCategories,setParentCategories] = useState([]);
 
     async function saveCategory(ev){
         ev.preventDefault();
-        await axios.post("/api/categories",{name})
-        console.log(name)
+        await axios.post("/api/categories",{name,parentCategories})
         setName('');
         fetchCategory();
     }
@@ -36,7 +36,9 @@ export default function categories(){
                 onChange={ev => setName(ev.target.value)}
                 value = {name}
             />
-            <select className="mb-0">
+            <select 
+            className="mb-0"
+            onChange={ev=>setParentCategories(ev.target.value)}>
                 <option value="0">No Category</option>
                 {
                     categories.length > 0 && categories.map(category=>(

@@ -6,8 +6,8 @@ export default async function handel(req,res){
     await mongooseConnect();
 
     if(method === "POST"){
-        const {name} = req.body
-        const categoryDoc = await Category.create({name})
+        const {name,parentCategories} = req.body
+        const categoryDoc = await Category.create({name,parent: parentCategories})
         res.json(categoryDoc)
     }
 
