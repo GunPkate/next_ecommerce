@@ -12,7 +12,7 @@ export default async function handel(req,res){
     }
 
     if(method === "GET"){
-        const categoryDoc = await Category.find();
+        const categoryDoc = await Category.find().populate('parent');
         res.json(categoryDoc);
     }
 }

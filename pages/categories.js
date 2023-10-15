@@ -15,7 +15,7 @@ export default function categories(){
     }
 
     async function fetchCategory(){
-        // axios.get("/api/categories").then(result=> console.log(result))
+        axios.get("/api/categories").then(result=> console.log(result))
         axios.get("/api/categories").then(result=>setCategories(result.data))
 
     }
@@ -53,12 +53,16 @@ export default function categories(){
             <thead>
                 <tr>
                     <td>Category Name</td>
+                    <td>Parent Category</td>
                 </tr>
             </thead>
             <tbody>
                 {
                     categories.length > 0 && categories.map(category=>(
-                        <tr>{category.name}</tr>
+                        <tr>
+                            <td> {category.name} </td>
+                            <td> {category.parent?.name} </td>
+                        </tr>
                     ))
                 }
             </tbody>
