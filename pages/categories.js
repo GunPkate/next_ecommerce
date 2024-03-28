@@ -6,7 +6,7 @@ import {withSwal} from 'react-sweetalert2'
 function Categories({swal}){
     const [name,setName] = useState('');
     const [categories,setCategories] = useState([]);
-    const [parentCategories,setParentCategories] = useState([]);
+    const [parentCategories,setParentCategories] = useState('');
 
     const [editedCategory,setEditedCategory] = useState(null);
 
@@ -33,6 +33,8 @@ function Categories({swal}){
     function editCategory(category){
         console.log(category)
         setEditedCategory(category);
+        setName(category.name)
+        setParentCategories(category.parent?._id)
     }
 
     function deleteCategory (category){
